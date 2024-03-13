@@ -86,6 +86,9 @@ let userData = {
 };
 
 const playSong = (id) => {
+  /* Optional chaining (?.) helps prevent errors when accessing nested 
+  properties that might be null or undefined. Returns undefined instead 
+  of throwing an error */
   const song = userData?.songs.find((song) => song.id === id);
   audio.src = song.src;
   audio.title = song.title;
@@ -106,7 +109,7 @@ const playSong = (id) => {
 
 const pauseSong = () => {
   userData.songCurrentTime = audio.currentTime;
-  
+
   playButton.classList.remove("playing");
   audio.pause();
 };
@@ -122,14 +125,14 @@ const playNextSong = () => {
   }
 };
 
-const playPreviousSong = () =>{
-   if (userData?.currentSong === null) return;
-   else {
+const playPreviousSong = () => {
+  if (userData?.currentSong === null) return;
+  else {
     const currentSongIndex = getCurrentSongIndex();
     const previousSong = userData?.songs[currentSongIndex - 1];
 
     playSong(previousSong.id);
-   }
+  }
 };
 
 const shuffle = () => {
@@ -153,9 +156,9 @@ const deleteSong = (id) => {
   }
 
   userData.songs = userData?.songs.filter((song) => song.id !== id);
-  renderSongs(userData?.songs); 
-  highlightCurrentSong(); 
-  setPlayButtonAccessibleText(); 
+  renderSongs(userData?.songs);
+  highlightCurrentSong();
+  setPlayButtonAccessibleText();
 
   if (userData?.songs.length === 0) {
     const resetButton = document.createElement("button");
@@ -169,13 +172,11 @@ const deleteSong = (id) => {
     resetButton.addEventListener("click", () => {
       userData.songs = [...allSongs];
 
-      renderSongs(sortSongs()); 
+      renderSongs(sortSongs());
       setPlayButtonAccessibleText();
       resetButton.remove();
     });
-
   }
-
 };
 
 const setPlayerDisplay = () => {
@@ -203,7 +204,7 @@ const highlightCurrentSong = () => {
 
 const renderSongs = (array) => {
   const songsHTML = array
-    .map((song)=> {
+    .map((song) => {
       return `
       <li id="song-${song.id}" class="playlist-song">
       <button class="playlist-song-info" onclick="playSong(${song.id})">
@@ -232,17 +233,18 @@ const setPlayButtonAccessibleText = () => {
   );
 };
 
-const getCurrentSongIndex = () => userData?.songs.indexOf(userData?.currentSong);
+const getCurrentSongIndex = () =>
+  userData?.songs.indexOf(userData?.currentSong);
 
 playButton.addEventListener("click", () => {
-    if (userData?.currentSong === null) {
+  if (userData?.currentSong === null) {
     playSong(userData?.songs[0].id);
   } else {
     playSong(userData?.currentSong.id);
   }
 });
 
-pauseButton.addEventListener("click",  pauseSong);
+pauseButton.addEventListener("click", pauseSong);
 
 nextButton.addEventListener("click", playNextSong);
 
@@ -254,21 +256,20 @@ audio.addEventListener("ended", () => {
   const currentSongIndex = getCurrentSongIndex();
   const nextSongExists = userData?.songs[currentSongIndex + 1] !== undefined;
 
-    if (nextSongExists) {
-      playNextSong();
-    } else {
-      userData.currentSong = null;
-      userData.songCurrentTime = 0;  
-pauseSong();
-setPlayerDisplay();
-highlightCurrentSong();
-setPlayButtonAccessibleText();
-
-    }
+  if (nextSongExists) {
+    playNextSong();
+  } else {
+    userData.currentSong = null;
+    userData.songCurrentTime = 0;
+    pauseSong();
+    setPlayerDisplay();
+    highlightCurrentSong();
+    setPlayButtonAccessibleText();
+  }
 });
 
 const sortSongs = () => {
-  userData?.songs.sort((a,b) => {
+  userData?.songs.sort((a, b) => {
     if (a.title < b.title) {
       return -1;
     }
