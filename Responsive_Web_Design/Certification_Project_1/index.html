@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Survey form</title>
+  </head>
+  <body>
+    <h1 id="title">Survey form</h1>
+    <p id="description">
+      Please fill out the form to participate in the educational courses for
+      young scientists.
+    </p>
+    <form id="survey-form">
+      <fieldset>
+        <label for="name" id="name-label"
+          >Name
+          <input id="name" type="text" placeholder="Enter your name" required
+        /></label>
+        <label for="email" id="email-label"
+          >E-mail<input
+            id="email"
+            type="email"
+            placeholder="Enter your e-mail"
+            required
+        /></label>
+        <label for="number" id="number-label"
+          >Age<input
+            id="number"
+            type="number"
+            placeholder="Age"
+            min="18"
+            max="35"
+        /></label>
+      </fieldset>
+      <fieldset>
+        <legend>Choose your institution union</legend>
+        <label for="maxplanck"
+          ><input
+            id="maxplanck"
+            type="radio"
+            name="institution"
+            value="1"
+            class="inline"
+            checked
+          />Max Planck Society</label
+        >
+        <label for="leibniz"
+          ><input
+            id="leibniz"
+            type="radio"
+            name="institution"
+            class="inline"
+            value="2"
+          />Leibniz Association</label
+        >
+        <label for="helmholtz"
+          ><input
+            id="helmholtz"
+            type="radio"
+            name="institution"
+            class="inline"
+            value="3"
+          />Helmholtz Association
+        </label>
+        <label for="fraunhofer"
+          ><input
+            id="fraunhofer"
+            type="radio"
+            name="institution"
+            class="inline"
+            value="4"
+          />Fraunhofer Gesellschaft
+        </label>
+      </fieldset>
+      <label for="dropdown">
+        Choose a city to attend a course
+        <select id="dropdown">
+          <option value="">(select one)</option>
+          <option value="1">Berlin</option>
+          <option value="2">Munich</option>
+          <option value="3">Hamburg</option>
+          <option value="4">Frankfurt am Main</option>
+        </select>
+      </label>
+      <fieldset>
+        Choose a course
+        <label for="course1">
+          <input id="course1" type="checkbox" class="inline" value="1" />
+          Scientific writing</label
+        >
+        <label for="course2">
+          <input id="course2" type="checkbox" class="inline" value="2" /> Grant
+          proposal writing</label
+        >
+        <label for="course3">
+          <input id="course3" type="checkbox" class="inline" value="3" />
+          Self-presentation</label
+        >
+        <label for="course4">
+          <input id="course4" type="checkbox" class="inline" value="4" />
+          Entrepreneurship in science</label
+        >
+      </fieldset>
+      <label for="motivation"
+        >Your motivation:<textarea
+          id="motivation"
+          rows="10"
+          cols="40"
+          placeholder="Write a short motivational letter about why you need this course."
+        ></textarea>
+      </label>
+      <input id="submit" type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
